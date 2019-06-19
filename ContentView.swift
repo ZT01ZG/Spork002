@@ -79,7 +79,6 @@ struct ContentView : View {
                     }
 
                 }
-
                 Section {
                     TextField($order.name, placeholder: Text("Name"))
                     TextField($order.address, placeholder: Text("Address"))
@@ -92,12 +91,12 @@ struct ContentView : View {
                         self.placeOrder()
                     }) {
                         Text("Place Order")
-                    }.disabled(!order.isValid)
+                        }.disabled(!order.isValid)
                 }
-            }
-            .navigationBarTitle(Text("Cupcake Corner"))
-            .presentation($showingConfirmation) {
-                Alert(title: Text("Thank you!"), message: Text(confirmationMessage), dismissButton: .default(Text("OK")))
+                }
+                .navigationBarTitle(Text("Cupcake Corner"))
+                .presentation($showingConfirmation) {
+                    Alert(title: Text("Thank you!"), message: Text(confirmationMessage), dismissButton: .default(Text("OK")))
             }
         }
     }
@@ -123,14 +122,14 @@ struct ContentView : View {
             }
             if let decodedOrder = try? JSONDecoder().decode(Order.self, from: data) {
                 self.confirmationMessage = "Your order for \(decodedOrder.quantity)x\(Order.types[decodedOrder.type].lowercased()) cupcakes is on its way!"
-                self.showingConfirmation = false
+                self.showingConfirmation = true
             } else {
                 let dataString = String(data: data, encoding: .utf8)
                 print("Invalid response: \(data)")
-//                let dataString =
-//                print("Invalid response: \(data)")
+                //                let dataString =
+                //                print("Invalid response: \(data)")
             }
-        }.resume()
+            }.resume()
 
     }
 }
